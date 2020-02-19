@@ -21,7 +21,7 @@
         <div id="upper-row" class="row justify-content-center">
             <div id="feed" class="col-7 text-center font-white ">
                 <div class="card-container">
-                    <h2>Post list!</h2>
+                    <h2>FollowUnfollow</h2>
                     <ul id="listposts" class="list-posts">
 
                     </ul>
@@ -42,10 +42,10 @@
         let socket = io.connect('http://localhost:5000/');
         let allPosts = [];
 
-        function createCard(code) {
+        function createCard(username) {
             let actualDate = new Date()
             let now = actualDate.getDay().toString() + actualDate.getDate().toString() + actualDate.getHours().toString() + actualDate.getMinutes().toString() + actualDate.getMilliseconds().toString()
-            let cardTemplate = `<li id="${now}" class="list-post">https://instagram.com/p/${code}</li>`
+            let cardTemplate = `<li id="${now}" class="list-post">https://instagram.com/${username}</li>`
 
             return cardTemplate
         }
@@ -77,19 +77,19 @@
             $( ".clicked" ).each(function( index ) {
                 $(this).remove()
             });
-        })
+        });
 
         $("#start").click((e) => {
-            socket.emit('triggerComments', {"message":"start"});
+            socket.emit('triggerFollowUnfollow', {"message":"start"});
             $("#start").remove();
             alert("Data will be ready in few minuts");
         });
 
-        socket.on('addNewPost', (data) => {
+        socket.on('addNewFollow', (data) => {
             console.log(data)
             allPosts.push(data);
             let actualIndex = parseInt(allPosts.length) - 1;
-            let cardToRender = createCard(allPosts[actualIndex].ownFeed.code)
+            let cardToRender = createCard(allPosts[actualIndex].user.username)
 
             $("#listposts").append(cardToRender)
         });

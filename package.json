@@ -1,6 +1,6 @@
 {
   "name": "insta-growth",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "tool for instagram that helps you to growth",
   "main": "src/index.js",
   "scripts": {

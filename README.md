@@ -58,14 +58,18 @@ And then we have to fine tune the options with which we want the application to 
 
 ``` json
 {
-    "hashtags" : ["food","recipes","sushi"], 
-    "maxFollows" : 1000, 
-    "maxMediaCount" : 450 
+     "hashtags" : ["food","recipes","sushi"], 
+     "maxFollows" : 1000, 
+     "maxMediaCount" : 450,
+     "maxFollowerCountToFollowUnfollow" : 500,
+     "ratioFollowUnfollow" : 0.33
 }
 ```
-**hashtags :** hashtags related to our account.  
-**maxFollows :** maximum followers of our targets.   
-**maxMediaCount :** maximum media of our targets.  
+**hashtags :** Hashtags related to our account.  
+**maxFollows :** Maximum followers of our targets.   
+**maxMediaCount :** Maximum media of our targets.  
+**maxFollowerCountToFollowUnfollow :** Maximum of followers that an account must have to start the follow/unfollow strategy
+**ratioFollowUnfollow :** The ratio of following / followers required to start  follow/unfollow strategy
 
 ## Usage
 **Now we are ready to run the software**. Open two different terminals, we will execute two separate processes

@@ -14,9 +14,12 @@
 </head>
 <body>
     <div class="container ">
+        <div style="margin-top:15px;" class="row justify-content-center">
+            <button class="btn-action" id="start">START</button>
+        </div>
         <div id="upper-row" class="row justify-content-center">
                 <div class="col-7 text-center ">
-                    <div class="card-container text center">
+                    <div class="card-container text center font-white ">
                         <h2>Graphical interface</h2>
                     </div>
                 </div>
@@ -35,7 +38,7 @@
         let socket = io.connect('http://localhost:5000/');
         let allPosts = [];
 
-        function createCard(username, profilePicture, post, date, media_id) {
+        function createCard(username, profilePicture, post, date, media_id,code) {
             let cardTemplate = `<div id="card#${username}#${date}" class="card-container">
                 <div class="name-holder d-flex flex-row ">
                     <div class="profile-picture ">
@@ -47,8 +50,9 @@
                             <div class="remove-card ml-auto p-2 bd-highlight">X</div>
                         </div>
                         <div class="card-picture">
-                            <img src="${post}" alt="instagram post">
+                            <a href="https://instagram.com/p/${code}"  target="_blank"><img src="${post}" alt="instagram post"></a>
                         </div>
+                        <!--
                         <div class="icons-holder d-flex flex-row">
                             <img class="like-icon" src="./img/like.svg" alt="Like icon" id="${username}#${date}#${media_id}#giveLike>
                         </div>
@@ -60,8 +64,8 @@
                         <div class="post-comment mt-3">
                             <input type="text" name="comment-to-post" placeholder="Escribe tu comentario aquí">
                             <img class="icon_send" src="./img/send.svg" id="${username}#${date}#${media_id}#postComment">
-                            <!--<i  class="fi-xnsrxl-chevron-solid height-ok"></i>-->
-                        </div>
+                            <i  class="fi-xnsrxl-chevron-solid height-ok"></i>
+                            </div>-->
                     </div>`
 
             return cardTemplate
@@ -75,7 +79,8 @@
         setInterval(() => {
             let feedElChildrens = $('#feed').children()
             if(feedElChildrens.length == 0 && allPosts != 0){
-                let cardToRender = createCard(allPosts[0].userInfo.username, allPosts[0].userInfo.profile_pic_url, allPosts[0].photoUrl, allPosts[0].ownFeed.taken_at, allPosts[0].ownFeed.id)
+                
+                let cardToRender = createCard(allPosts[0].userInfo.username, allPosts[0].userInfo.profile_pic_url, allPosts[0].photoUrl, allPosts[0].ownFeed.taken_at, allPosts[0].ownFeed.id,allPosts[0].ownFeed.code)
                 $("#feed").append(cardToRender)
             }
         }, 200);
@@ -91,6 +96,12 @@
         $('#feed').on('click', '.remove-card', function () {
             $(this).parent().parent().remove();
             allPosts.shift();
+        });
+
+        $("#start").click((e) => {
+            socket.emit('triggerComments', {"message":"start"});
+            $("#start").remove();
+            alert("Data will be ready in few minuts");
         });
 
         $('#feed').on('click', '.like-icon', function () {

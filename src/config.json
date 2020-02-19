@@ -1,5 +1,7 @@
 {
-    "hashtags" : ["graphicdesign","logodesigner","branddesign","branding"],
+    "hashtags" : ["graphicdesign"],
     "maxFollows" : 1000,
-    "maxMediaCount" : 450
+    "maxMediaCount" : 450,
+    "maxFollowerCountToFollowUnfollow" : 500,
+    "ratioFollowUnfollow" : 0.33
 }

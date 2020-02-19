@@ -13,4 +13,8 @@ router.get('/list' , (req,res) => {
     res.render('listposts.ejs');
 });
 
+router.get('/followunfollow' , (req,res) => {
+    res.render('followunfollow.ejs');
+})
+
 module.exports = router;
